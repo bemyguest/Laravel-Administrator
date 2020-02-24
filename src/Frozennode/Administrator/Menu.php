@@ -51,6 +51,9 @@ class Menu {
 		//iterate over the menu to build the return array of valid menu items
 		foreach ($subMenu as $key => $item)
 		{
+            if (is_callable($item)) {
+                $item = call_user_func($item);
+            }
 			//if the item is a string, find its config
 			if (is_string($item))
 			{
