@@ -1,7 +1,6 @@
 <?php
 namespace Frozennode\Administrator\Includes;
 
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -74,7 +73,7 @@ class Multup {
 
 	/**
 	 * Instantiates the Multup
-	 * @param mixed $file The file array provided by Laravel's Input::file('field_name') or a path to a file
+	 * @param mixed $file The file array provided by Laravel's request('field_name') or a path to a file
 	 */
 	public function __construct($input, $rules, $path, $random)
 	{
@@ -121,7 +120,7 @@ class Multup {
 	public function upload()
 	{
 
-		$this->image = array($this->input => Input::file($this->input));
+		$this->image = array($this->input => request($this->input));
 		$result = array();
 
 		$result[] = $this->post_upload_process($this->upload_image());
@@ -206,7 +205,6 @@ class Multup {
 
 			/* upload the file */
 			$save = $this->image[$this->input]->move($this->path, $filename);
-			//$save = Input::upload($this->input, $this->path, $filename);
 
 			if($save){
 				$path = $this->path.$filename;
