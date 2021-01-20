@@ -3,31 +3,7 @@ namespace Frozennode\Administrator\Tests\DataTable\Columns\Relationships;
 
 use Mockery as m;
 
-class BelongsToStub {
-	public function bt() {
-		$mock = m::mock('Illuminate\\Database\\Eloquent\\Relations\\BelongsTo');
-		$mock->shouldReceive('getRelated')->zeroOrMoreTimes()->andReturn(new BelongsToNestStub);
-		return $mock;
-	}
-}
-
-class BelongsToNestStub {
-	public function btnest() {
-		$mock = m::mock('Illuminate\\Database\\Eloquent\\Relations\\BelongsTo');
-		$mock->shouldReceive('getRelated')->zeroOrMoreTimes()->andReturn(new BelongsToDeepNestStub);
-		return $mock;
-	}
-}
-
-class BelongsToDeepNestStub {
-	public function btdeepnest() {
-		$mock = m::mock('Illuminate\\Database\\Eloquent\\Relations\\BelongsTo');
-		$mock->shouldReceive('getRelated')->zeroOrMoreTimes()->andReturn(new BelongsToDeepNestStub);
-		return $mock;
-	}
-}
-
-class BelongsToTest extends \PHPUnit_Framework_TestCase {
+class BelongsToTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * The Validator mock
@@ -60,7 +36,7 @@ class BelongsToTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Set up function
 	 */
-	public function setUp()
+	protected function setUp(): void
 	{
 		$this->validator = m::mock('Frozennode\Administrator\Validator');
 		$this->config = m::mock('Frozennode\Administrator\Config\Model\Config');
@@ -74,11 +50,14 @@ class BelongsToTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tear down function
 	 */
-	public function tearDown()
+	protected function tearDown(): void
 	{
 		m::close();
 	}
 
+	/**
+	 * @doesNotPerformAssertions
+	 */
 	public function testBuild()
 	{
 		$relevantModel = m::mock(array('method' => m::mock(array('getRelated' => m::mock(array('getTable' => ''))))));
@@ -124,11 +103,9 @@ class BelongsToTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(sizeof($nested['models']), 4);
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testGetNestedRelationshipsFails()
 	{
+		$this->expectException(\InvalidArgumentException::class);
 		$name = 'nope';
 		$stub = new BelongsToStub;
 		$this->config->shouldReceive('getDataModel')->once()->andReturn($stub)

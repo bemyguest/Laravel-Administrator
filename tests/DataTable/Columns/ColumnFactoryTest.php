@@ -3,18 +3,7 @@ namespace Frozennode\Administrator\Tests\DataTable\Columns;
 
 use Mockery as m;
 
-class EloquentStub {
-	public function bt() {return m::mock('Illuminate\Database\Eloquent\Relations\BelongsTo');}
-	public function btm() {return m::mock('Illuminate\Database\Eloquent\Relations\BelongsToMany');}
-	public function hm() {return m::mock('Illuminate\Database\Eloquent\Relations\HasMany');}
-	public function ho() {return m::mock('Illuminate\Database\Eloquent\Relations\HasOne');}
-}
-
-class ColumnStub {
-	public $foo = 'bar';
-}
-
-class ColumnFactoryTest extends \PHPUnit_Framework_TestCase {
+class ColumnFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * The Validator mock
@@ -55,7 +44,7 @@ class ColumnFactoryTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Set up function
 	 */
-	public function setUp()
+	protected function setUp(): void
 	{
 		$this->validator = m::mock('Frozennode\Administrator\Validator');
 		$this->config = m::mock('Frozennode\Administrator\Config\Model\Config');
@@ -66,7 +55,7 @@ class ColumnFactoryTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tear down function
 	 */
-	public function tearDown()
+	protected function tearDown(): void
 	{
 		m::close();
 	}
@@ -142,11 +131,9 @@ class ColumnFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($this->factory->parseOptions('funky', array('title' => 'Funky')), array('column_name' => 'funky', 'title' => 'Funky'));
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testParseOptionsInvalidValueThrowsError()
 	{
+		$this->expectException(\InvalidArgumentException::class);
 		$this->config->shouldReceive('getOption')->once()->andReturn('');
 		$this->factory->parseOptions(0, null);
 	}
