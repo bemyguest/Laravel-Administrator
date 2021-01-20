@@ -3,12 +3,7 @@ namespace Frozennode\Administrator\Tests\Fields\Relationships;
 
 use Mockery as m;
 
-class EloquentStub {
-	public function foo() {}
-	public function bar() {}
-}
-
-class RelationshipTest extends \PHPUnit_Framework_TestCase {
+class RelationshipTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * The Validator mock
@@ -41,7 +36,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Set up function
 	 */
-	public function setUp()
+	protected function setUp(): void
 	{
 		$this->validator = m::mock('Frozennode\Administrator\Validator');
 		$this->config = m::mock('Frozennode\Administrator\Config\Model\Config');
@@ -54,11 +49,14 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tear down function
 	 */
-	public function tearDown()
+	protected function tearDown(): void
 	{
 		m::close();
 	}
 
+	/**
+	 * @doesNotPerformAssertions
+	 */
 	public function testBuild()
 	{
 		$relationship = m::mock(array('getRelated' => m::mock(array('getTable' => 'table'))));
