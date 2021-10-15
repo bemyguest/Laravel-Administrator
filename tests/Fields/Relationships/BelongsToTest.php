@@ -101,7 +101,7 @@ class BelongsToTest extends \PHPUnit\Framework\TestCase {
 	{
 		$query = m::mock('Illuminate\Database\Query\Builder');
 		$query->shouldReceive('where')->once();
-		$this->config->shouldReceive('getDataModel')->once()->andReturn(m::mock(array('getTable' => 'table')));
+		$this->config->shouldReceive('getDataModel')->times(2)->andReturn(m::mock(array('getTable' => 'table')));
 		$this->field->shouldReceive('getOption')->times(4)->andReturn(false, 'test');
 		$this->field->filterQuery($query);
 	}

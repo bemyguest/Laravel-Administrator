@@ -68,7 +68,7 @@ class BelongsTo extends Relationship {
 			return;
 		}
 
-		$query->where($this->getOption('foreign_key'), '=', $this->getOption('value'));
+        $query->where($this->config->getDataModel()->getTable() . '.' . $this->getOption('foreign_key'), '=', $this->getOption('value'));
 	}
 
 }
