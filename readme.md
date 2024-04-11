@@ -53,7 +53,7 @@ Since Administrator has switched over to Composer, you can no longer use `php ar
 
 ## Documentation
 
-The complete docs for Administrator can be found at http://administrator.frozennode.com. You can also find the docs in the `/src/docs` directory.
+The complete docs for Administrator can be found [here](docs/documentation.md).
 
 
 ## Copyright and License
