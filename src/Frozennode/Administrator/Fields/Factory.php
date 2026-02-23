@@ -35,6 +35,7 @@ class Factory {
 		'belongs_to' => 'Frozennode\\Administrator\\Fields\\Relationships\\BelongsTo',
 		'belongs_to_many' => 'Frozennode\\Administrator\\Fields\\Relationships\\BelongsToMany',
 		'has_one' => 'Frozennode\\Administrator\\Fields\\Relationships\\HasOne',
+		'has_one_through' => 'Frozennode\\Administrator\\Fields\\Relationships\\HasOneThrough',
 		'has_many' => 'Frozennode\\Administrator\\Fields\\Relationships\\HasMany',
 
 	);
@@ -322,6 +323,10 @@ class Factory {
 		else if (is_a($related_model, $this->relationshipBase.'HasOne'))
 		{
 			return 'has_one';
+		}
+		else if (is_a($related_model, $this->relationshipBase.'HasOneThrough'))
+		{
+			return 'has_one_through';
 		}
 		else if (is_a($related_model, $this->relationshipBase.'HasMany'))
 		{
