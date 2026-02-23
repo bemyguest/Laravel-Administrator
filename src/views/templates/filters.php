@@ -73,6 +73,17 @@
 				<!-- /ko -->
 			<!-- /ko -->
 
+			<!-- ko if: type === 'has_one_through' -->
+				<div class="loader" data-bind="visible: loadingOptions"></div>
+
+				<!-- ko if: autocomplete -->
+				<input type="hidden" data-bind="value: value, attr: {id: field_id}, select2Remote: {field: field_name, type: 'filter', filterIndex: $index()}"/>
+				<!-- /ko -->
+				<!-- ko ifnot: autocomplete -->
+				<input type="hidden" data-bind="value: value, attr: {id: field_id}, select2: {data: {results: $root.listOptions[field_name]}}" />
+				<!-- /ko -->
+			<!-- /ko -->
+
 			<!-- ko if: type === 'belongs_to_many' -->
 				<div class="loader" data-bind="visible: loadingOptions"></div>
 
